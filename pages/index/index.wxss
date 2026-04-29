@@ -1,0 +1,366 @@
+/* 首页单屏紧凑布局 */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  padding-bottom: 120rpx;
+}
+
+/* 顶部标题栏 */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx 10rpx;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.app-subtitle {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4rpx;
+}
+
+.header-right {
+  background: rgba(233,69,96,0.2);
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.total-count {
+  font-size: 22rpx;
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+/* 搜索栏 */
+.search-bar {
+  padding: 10rpx 30rpx 20rpx;
+}
+
+.search-box {
+  background: rgba(255,255,255,0.1);
+  border-radius: 40rpx;
+  padding: 16rpx 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  border: 1rpx solid rgba(255,255,255,0.1);
+}
+
+.search-icon {
+  font-size: 28rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.search-input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+/* 分类快捷入口 - 横排 */
+.category-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20rpx 20rpx;
+}
+
+.cat-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  margin: 0 6rpx;
+  padding: 16rpx 8rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid rgba(255,255,255,0.05);
+}
+
+.chip-icon {
+  font-size: 40rpx;
+  margin-bottom: 6rpx;
+}
+
+.chip-name {
+  font-size: 22rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.chip-count {
+  font-size: 18rpx;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2rpx;
+}
+
+/* 热门球拍区域 */
+.hot-section {
+  padding: 0 20rpx 20rpx;
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.more-link {
+  font-size: 24rpx;
+  color: #ff6b6b;
+}
+
+.hot-scroll {
+  white-space: nowrap;
+  height: 240rpx;
+}
+
+.hot-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200rpx;
+  height: 220rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20rpx;
+  padding: 16rpx;
+  margin-right: 16rpx;
+  position: relative;
+  border: 1rpx solid rgba(255,255,255,0.05);
+}
+
+.hot-rank {
+  position: absolute;
+  top: 10rpx;
+  left: 10rpx;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.top1 .hot-rank {
+  background: linear-gradient(135deg, #ffd700, #ffb800);
+  color: #8b6914;
+}
+
+.top2 .hot-rank {
+  background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+}
+
+.top3 .hot-rank {
+  background: linear-gradient(135deg, #cd7f32, #b87333);
+}
+
+.hot-icon {
+  font-size: 60rpx;
+  margin: 20rpx 0 10rpx;
+}
+
+.hot-brand {
+  font-size: 18rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+.hot-name {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.hot-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.hot-price {
+  font-size: 24rpx;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.hot-rating {
+  font-size: 20rpx;
+  color: #ffd700;
+}
+
+/* 手胶对比入口 */
+.compare-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20rpx 20rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+}
+
+.compare-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.compare-icon {
+  font-size: 40rpx;
+}
+
+.compare-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.compare-title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.compare-desc {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4rpx;
+}
+
+.compare-arrow {
+  font-size: 40rpx;
+  color: #fff;
+}
+
+/* 精选推荐 */
+.recommend-section {
+  padding: 0 20rpx;
+}
+
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+}
+
+.rec-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 16rpx;
+  padding: 20rpx;
+  border: 1rpx solid rgba(255,255,255,0.05);
+}
+
+.rec-header {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 12rpx;
+}
+
+.rec-icon {
+  font-size: 32rpx;
+}
+
+.rec-label {
+  font-size: 18rpx;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.rec-name {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rec-type {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.5);
+  margin-top: 6rpx;
+  display: block;
+}
+
+.rec-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12rpx;
+}
+
+.rec-price {
+  font-size: 26rpx;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.rec-rating {
+  font-size: 20rpx;
+  color: #ffd700;
+}
+
+.rec-action {
+  font-size: 22rpx;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.rec-arrow {
+  font-size: 28rpx;
+  color: #667eea;
+}
+
+/* 精选卡片颜色标识 */
+.rec-grip {
+  border-left: 4rpx solid #4ecdc4;
+}
+
+.rec-shuttle {
+  border-left: 4rpx solid #ffd700;
+}
+
+.rec-shoe {
+  border-left: 4rpx solid #a29bfe;
+}
+
+.rec-compare {
+  border-left: 4rpx solid #667eea;
+}
+
+/* 底部安全区 */
+.bottom-safe {
+  height: 40rpx;
+}

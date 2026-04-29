@@ -1,0 +1,268 @@
+<view class="container" wx:if="{{grip}}">
+  <!-- 顶部产品卡片 -->
+  <view class="product-header">
+    <view class="header-bg">
+      <view class="product-main">
+        <view class="product-image-wrap">
+          <view class="product-icon">🧤</view>
+          <view class="product-badge-row">
+            <text class="badge badge-hot" wx:if="{{grip.isHot}}">🔥 人气</text>
+          </view>
+        </view>
+        <view class="product-info">
+          <text class="brand-tag">{{grip.brand}}</text>
+          <text class="product-name">{{grip.name}}</text>
+          <view class="product-tags">
+            <text class="type-tag">{{grip.type}}</text>
+            <text class="level-tag">{{grip.level}}</text>
+          </view>
+          <view class="rating-row">
+            <view class="stars">
+              <text class="star" wx:for="{{5}}" wx:key="*this">{{item <= ratingInt ? '★' : '☆'}}</text>
+            </view>
+            <text class="rating-text">{{grip.rating}}分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 价格和规格 -->
+  <view class="price-section">
+    <view class="price-box">
+      <text class="price-symbol">¥</text>
+      <text class="price-num">{{grip.price}}</text>
+      <text class="price-unit">/卷</text>
+    </view>
+    <view class="specs-quick">
+      <text class="spec-quick-item">{{grip.material}}</text>
+      <text class="spec-sep">|</text>
+      <text class="spec-quick-item">{{grip.thickness}}</text>
+      <text class="spec-sep">|</text>
+      <text class="spec-quick-item">{{grip.length}}</text>
+    </view>
+  </view>
+
+  <!-- 手胶类型科普 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">📚 手胶类型选择指南</text>
+    </view>
+    <view class="grip-types-grid">
+      <view class="grip-type-card {{grip.type === '薄手胶' ? 'active' : ''}}">
+        <text class="type-icon">📝</text>
+        <text class="type-name">薄手胶</text>
+        <text class="type-desc">0.5-0.8mm，手感真实</text>
+      </view>
+      <view class="grip-type-card {{grip.type === '粘性手胶' ? 'active' : ''}}">
+        <text class="type-icon">🎯</text>
+        <text class="type-name">粘性手胶</text>
+        <text class="type-desc">防滑出色，耐磨</text>
+      </view>
+      <view class="grip-type-card {{grip.type === '毛巾胶' ? 'active' : ''}}">
+        <text class="type-icon">🧻</text>
+        <text class="type-name">毛巾胶</text>
+        <text class="type-desc">吸汗极佳，增粗</text>
+      </view>
+      <view class="grip-type-card {{grip.type === '复合手胶' ? 'active' : ''}}">
+        <text class="type-icon">🧩</text>
+        <text class="type-name">复合手胶</text>
+        <text class="type-desc">兼顾防滑与舒适</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 详细参数 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">📋 产品规格</text>
+    </view>
+    <view class="specs-table">
+      <view class="spec-row">
+        <text class="spec-key">材质</text>
+        <text class="spec-value">{{grip.material}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">厚度</text>
+        <text class="spec-value">{{grip.thickness}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">长度</text>
+        <text class="spec-value">{{grip.length}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">宽度</text>
+        <text class="spec-value">{{grip.width}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">可选颜色</text>
+        <text class="spec-value">{{grip.colors.join('、')}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 性能评分 -->
+  <view class="section-card perf-section">
+    <view class="section-header">
+      <text class="section-title">📊 性能指标</text>
+    </view>
+    <view class="perf-list">
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">手感细腻度</text>
+          <text class="perf-score">{{grip.performance['手感细腻度']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['手感细腻度']}}%; background: linear-gradient(90deg, #667eea, #764ba2)"></view>
+        </view>
+      </view>
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">吸汗性</text>
+          <text class="perf-score">{{grip.performance['吸汗性']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['吸汗性']}}%; background: linear-gradient(90deg, #4ecdc4, #00d2d3)"></view>
+        </view>
+      </view>
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">防滑性(干手)</text>
+          <text class="perf-score">{{grip.performance['防滑性(干)']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['防滑性(干)']}}%; background: linear-gradient(90deg, #ffd700, #ffb800)"></view>
+        </view>
+      </view>
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">防滑性(汗手)</text>
+          <text class="perf-score">{{grip.performance['防滑性(汗)']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['防滑性(汗)']}}%; background: linear-gradient(90deg, #ff6b6b, #ee5a5a)"></view>
+        </view>
+      </view>
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">耐磨度</text>
+          <text class="perf-score">{{grip.performance['耐磨度']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['耐磨度']}}%; background: linear-gradient(90deg, #a29bfe, #6c5ce7)"></view>
+        </view>
+      </view>
+      <view class="perf-item">
+        <view class="perf-label">
+          <text class="perf-name">舒适度</text>
+          <text class="perf-score">{{grip.performance['舒适度']}}</text>
+        </view>
+        <view class="perf-bar">
+          <view class="perf-fill" style="width: {{grip.performance['舒适度']}}%; background: linear-gradient(90deg, #fd79a8, #e84393)"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 真实体验 -->
+  <view class="section-card exp-section">
+    <view class="section-header">
+      <text class="section-title">✨ 真实使用体验</text>
+      <text class="section-subtitle">来自真实球友的反馈</text>
+    </view>
+    <view class="exp-timeline">
+      <view class="exp-moment">
+        <view class="moment-dot"></view>
+        <view class="moment-content">
+          <text class="moment-title">初上手</text>
+          <text class="moment-desc">{{grip.experience['初上手']}}</text>
+        </view>
+      </view>
+      <view class="exp-moment">
+        <view class="moment-dot"></view>
+        <view class="moment-content">
+          <text class="moment-title">击球中</text>
+          <text class="moment-desc">{{grip.experience['击球中']}}</text>
+        </view>
+      </view>
+      <view class="exp-moment">
+        <view class="moment-dot"></view>
+        <view class="moment-content">
+          <text class="moment-title">长时间使用</text>
+          <text class="moment-desc">{{grip.experience['长时间']}}</text>
+        </view>
+      </view>
+      <view class="exp-moment">
+        <view class="moment-dot"></view>
+        <view class="moment-content">
+          <text class="moment-title">冬季使用</text>
+          <text class="moment-desc">{{grip.experience['冬季']}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优缺点 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">💡 球友评价</text>
+    </view>
+    <view class="pros-cons">
+      <view class="pros-box">
+        <view class="box-header">
+          <text class="box-icon">👍</text>
+          <text class="box-title">优点</text>
+        </view>
+        <view class="box-list">
+          <view class="box-item" wx:for="{{grip.pros}}" wx:key="*this">
+            <text class="item-bullet">✓</text>
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="cons-box">
+        <view class="box-header">
+          <text class="box-icon">👎</text>
+          <text class="box-title">缺点</text>
+        </view>
+        <view class="box-list">
+          <view class="box-item" wx:for="{{grip.cons}}" wx:key="*this">
+            <text class="item-bullet">✗</text>
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 适用人群 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">👥 推荐人群</text>
+    </view>
+    <view class="suitable-tags">
+      <text class="suitable-tag" wx:for="{{grip.suitable}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="usage-tip">
+      <text class="tip-icon">💡</text>
+      <view class="tip-content">
+        <text class="tip-title">使用建议</text>
+        <text class="tip-text">{{grip.usage}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="action-icons">
+      <view class="action-icon-item">
+        <text class="icon-font">⭐</text>
+        <text class="icon-text">收藏</text>
+      </view>
+    </view>
+    <view class="action-btn-group">
+      <view class="btn-cart">加入购物车</view>
+      <view class="btn-buy">立即购买</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,147 @@
+<view class="container">
+  <!-- 顶部标题栏 -->
+  <view class="header-bar">
+    <view class="header-left">
+      <text class="app-title">🏸 羽毛球装备库</text>
+      <text class="app-subtitle">专业装备 精选推荐</text>
+    </view>
+    <view class="header-right">
+      <text class="total-count">共 {{rackets.length + grips.length + shuttlecocks.length + shoes.length}} 款</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索球拍/手胶/羽毛球/球鞋" />
+    </view>
+  </view>
+
+  <!-- 分类快捷入口 - 横排紧凑布局 -->
+  <view class="category-row">
+    <view class="cat-chip" bindtap="goToCategory" data-type="racket">
+      <text class="chip-icon">🏸</text>
+      <text class="chip-name">球拍</text>
+      <text class="chip-count">{{rackets.length}}款</text>
+    </view>
+    <view class="cat-chip" bindtap="goToCategory" data-type="grip">
+      <text class="chip-icon">🧤</text>
+      <text class="chip-name">手胶</text>
+      <text class="chip-count">{{grips.length}}款</text>
+    </view>
+    <view class="cat-chip" bindtap="goToCategory" data-type="shuttlecock">
+      <text class="chip-icon">🪶</text>
+      <text class="chip-name">羽毛球</text>
+      <text class="chip-count">{{shuttlecocks.length}}款</text>
+    </view>
+    <view class="cat-chip" bindtap="goToCategory" data-type="shoe">
+      <text class="chip-icon">👟</text>
+      <text class="chip-name">球鞋</text>
+      <text class="chip-count">{{shoes.length}}款</text>
+    </view>
+  </view>
+
+  <!-- 热门球拍 TOP3 - 横向卡片 -->
+  <view class="hot-section">
+    <view class="section-title-row">
+      <text class="section-title">🔥 热门球拍 TOP</text>
+      <text class="more-link" bindtap="goToCategory" data-type="racket">查看全部 ></text>
+    </view>
+    <scroll-view class="hot-scroll" scroll-x>
+      <view class="hot-card {{index === 0 ? 'top1' : index === 1 ? 'top2' : 'top3'}}" 
+            wx:for="{{hotRackets}}" 
+            wx:key="id" 
+            bindtap="goRacketDetail" 
+            data-id="{{item.id}}">
+        <view class="hot-rank">{{index + 1}}</view>
+        <text class="hot-icon">🏸</text>
+        <text class="hot-brand">{{item.brand}}</text>
+        <text class="hot-name">{{item.name}}</text>
+        <view class="hot-footer">
+          <text class="hot-price">¥{{item.price}}</text>
+          <text class="hot-rating">★ {{item.rating}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 手胶对比入口 -->
+  <view class="compare-bar" bindtap="goCompare">
+    <view class="compare-left">
+      <text class="compare-icon">📊</text>
+      <view class="compare-info">
+        <text class="compare-title">手胶类型对比</text>
+        <text class="compare-desc">薄胶 vs 粘性 vs 毛巾 vs 复合</text>
+      </view>
+    </view>
+    <text class="compare-arrow">›</text>
+  </view>
+
+  <!-- 精选推荐 - 2x2网格 -->
+  <view class="recommend-section">
+    <view class="section-title-row">
+      <text class="section-title">✨ 精选推荐</text>
+    </view>
+    <view class="recommend-grid">
+      <!-- 左：精选手胶 -->
+      <view class="rec-card rec-grip" bindtap="goGripDetail" data-id="{{grips[0].id}}">
+        <view class="rec-header">
+          <text class="rec-icon">🧤</text>
+          <text class="rec-label">热门手胶</text>
+        </view>
+        <text class="rec-name">{{grips[0].brand}} {{grips[0].name}}</text>
+        <text class="rec-type">{{grips[0].type}}</text>
+        <view class="rec-footer">
+          <text class="rec-price">¥{{grips[0].price}}</text>
+          <text class="rec-rating">★ {{grips[0].rating}}</text>
+        </view>
+      </view>
+      
+      <!-- 右：精选羽毛球 -->
+      <view class="rec-card rec-shuttle">
+        <view class="rec-header">
+          <text class="rec-icon">🪶</text>
+          <text class="rec-label">比赛级</text>
+        </view>
+        <text class="rec-name">{{shuttlecocks[0].brand}} {{shuttlecocks[0].name}}</text>
+        <text class="rec-type">{{shuttlecocks[0].level}}</text>
+        <view class="rec-footer">
+          <text class="rec-price">¥{{shuttlecocks[0].price}}</text>
+          <text class="rec-rating">★ {{shuttlecocks[0].rating}}</text>
+        </view>
+      </view>
+      
+      <!-- 左：精选球鞋 -->
+      <view class="rec-card rec-shoe">
+        <view class="rec-header">
+          <text class="rec-icon">👟</text>
+          <text class="rec-label">专业球鞋</text>
+        </view>
+        <text class="rec-name">{{shoes[0].brand}} {{shoes[0].name}}</text>
+        <text class="rec-type">{{shoes[0].type}}</text>
+        <view class="rec-footer">
+          <text class="rec-price">¥{{shoes[0].price}}</text>
+          <text class="rec-rating">★ {{shoes[0].rating}}</text>
+        </view>
+      </view>
+      
+      <!-- 右：性能对比 -->
+      <view class="rec-card rec-compare" bindtap="goCompare">
+        <view class="rec-header">
+          <text class="rec-icon">📊</text>
+          <text class="rec-label">对比工具</text>
+        </view>
+        <text class="rec-name">球拍性能对比</text>
+        <text class="rec-type">多款横向对比</text>
+        <view class="rec-footer">
+          <text class="rec-action">立即使用</text>
+          <text class="rec-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部导航占位 -->
+  <view class="bottom-safe"></view>
+</view>

@@ -1,0 +1,338 @@
+/* 分类页紧凑深色主题 */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* 顶部Tab栏 */
+.tab-bar {
+  display: flex;
+  background: rgba(255,255,255,0.05);
+  padding: 16rpx 10rpx;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.5);
+  padding: 12rpx 0;
+  border-radius: 30rpx;
+  margin: 0 4rpx;
+}
+
+.tab-item.active {
+  background: linear-gradient(135deg, #e94560, #ff6b6b);
+  color: #fff;
+  font-weight: bold;
+}
+
+/* 筛选行 */
+.filter-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  gap: 12rpx;
+  background: rgba(255,255,255,0.03);
+}
+
+.filter-picker {
+  flex: 1.2;
+}
+
+.picker-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 14rpx 16rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.7);
+}
+
+.picker-btn.active {
+  background: rgba(233,69,96,0.3);
+  color: #ff6b6b;
+}
+
+.picker-btn .arrow {
+  font-size: 18rpx;
+  color: inherit;
+}
+
+/* 级别按钮组 */
+.level-btns {
+  display: flex;
+  flex: 2;
+  gap: 8rpx;
+}
+
+.level-btn {
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 8rpx;
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.08);
+  border-radius: 30rpx;
+}
+
+.level-btn.active {
+  background: #4ecdc4;
+  color: #fff;
+}
+
+.level-btn.entry.active {
+  background: #4ecdc4;
+}
+
+.level-btn.advanced.active {
+  background: #ffd700;
+  color: #333;
+}
+
+.level-btn.pro.active {
+  background: linear-gradient(135deg, #e94560, #ff6b6b);
+}
+
+.sort-btn {
+  padding: 14rpx 20rpx;
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.08);
+  border-radius: 30rpx;
+  text-align: center;
+}
+
+/* 结果栏 */
+.result-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  border-bottom: 1rpx solid rgba(255,255,255,0.05);
+}
+
+.result-count {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.clear-btn {
+  font-size: 22rpx;
+  color: #ff6b6b;
+  padding: 8rpx 16rpx;
+}
+
+/* 商品网格 */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+  padding: 16rpx;
+  height: calc(100vh - 280rpx);
+}
+
+.grid-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 16rpx;
+  padding: 16rpx;
+  display: flex;
+  gap: 12rpx;
+  border: 1rpx solid rgba(255,255,255,0.05);
+}
+
+.card-icon {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 12rpx;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  flex-shrink: 0;
+}
+
+.card-icon.grip-icon {
+  background: linear-gradient(135deg, #4ecdc4, #44a3aa);
+}
+
+.card-icon.shuttle-icon {
+  background: linear-gradient(135deg, #ffd700, #ffb800);
+}
+
+.card-icon.shoe-icon {
+  background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+}
+
+.card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-brand {
+  font-size: 18rpx;
+  color: rgba(255,255,255,0.5);
+}
+
+.card-name {
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 4rpx 0;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-wrap: wrap;
+}
+
+.card-level {
+  font-size: 16rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 8rpx;
+  color: #fff;
+}
+
+.card-level.level-entry {
+  background: #4ecdc4;
+}
+
+.card-level.level-advanced {
+  background: #ffd700;
+  color: #333;
+}
+
+.card-level.level-pro {
+  background: linear-gradient(135deg, #e94560, #ff6b6b);
+}
+
+.card-perf {
+  font-size: 16rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.card-rating {
+  font-size: 20rpx;
+  color: #ffd700;
+}
+
+.card-price {
+  font-size: 24rpx;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* 排序弹窗 */
+.sort-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.sort-mask.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sort-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a2e;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 30rpx;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.sort-mask.show .sort-panel {
+  transform: translateY(0);
+}
+
+.sort-title {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.8);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.sort-list {
+  margin-bottom: 20rpx;
+}
+
+.sort-item {
+  padding: 24rpx;
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  border-radius: 12rpx;
+  margin-bottom: 12rpx;
+}
+
+.sort-item.active {
+  background: rgba(233,69,96,0.2);
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.sort-cancel {
+  padding: 24rpx;
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  border-top: 1rpx solid rgba(255,255,255,0.1);
+}
+
+/* 空状态 */
+.empty-state {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 50rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 30rpx;
+}
+
+.empty-btn {
+  padding: 20rpx 60rpx;
+  background: #ff6b6b;
+  color: #fff;
+  font-size: 28rpx;
+  border-radius: 40rpx;
+}

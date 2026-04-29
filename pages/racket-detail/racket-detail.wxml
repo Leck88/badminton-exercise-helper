@@ -1,0 +1,304 @@
+<view class="container" wx:if="{{racket}}">
+  <!-- 顶部产品卡片 -->
+  <view class="product-header">
+    <view class="header-bg" style="background: {{racket.isNew ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'linear-gradient(135deg, #e94560, #ff6b6b)'}}">
+      <view class="product-main">
+        <view class="product-image-wrap">
+          <view class="product-icon">🏸</view>
+          <view class="product-badge-row">
+            <text class="badge badge-hot" wx:if="{{racket.isHot}}">🔥 热销</text>
+            <text class="badge badge-new" wx:if="{{racket.isNew}}">✨ 新品</text>
+          </view>
+        </view>
+        <view class="product-info">
+          <text class="brand-tag">{{racket.brand}}</text>
+          <text class="product-name">{{racket.name}}</text>
+          <view class="product-tags">
+            <text class="type-tag">{{racket.type}}</text>
+            <text class="level-tag">{{racket.level}}</text>
+          </view>
+          <view class="rating-row">
+            <view class="stars">
+              <text class="star" wx:for="{{5}}" wx:key="*this">{{item <= ratingInt ? '★' : '☆'}}</text>
+            </view>
+            <text class="rating-text">{{racket.rating}}分</text>
+            <text class="sales-text">已售 {{racket.sales}}+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 价格区域 -->
+  <view class="price-section">
+    <view class="price-info">
+      <view class="current-price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{racket.price}}</text>
+      </view>
+      <view class="price-range">
+        <text>参考价：{{racket.priceRange}}</text>
+      </view>
+    </view>
+    <view class="color-options">
+      <text class="option-label">可选颜色：</text>
+      <text class="color-text">{{racket.color}}</text>
+    </view>
+  </view>
+
+  <!-- 适用人群 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">👥 适合人群</text>
+    </view>
+    <view class="suitable-tags">
+      <text class="suitable-tag" wx:for="{{racket.expertReview.suitable}}" wx:key="*this">✓ {{item}}</text>
+    </view>
+    <view class="not-suitable">
+      <text class="not-suitable-title">不适合：</text>
+      <text class="not-suitable-text" wx:for="{{racket.expertReview.notSuitable}}" wx:key="*this">{{item}}{{index < racket.expertReview.notSuitable.length - 1 ? '、' : ''}}</text>
+    </view>
+  </view>
+
+  <!-- 详细参数 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">📋 详细参数</text>
+    </view>
+    <view class="specs-table">
+      <view class="spec-row">
+        <text class="spec-key">重量</text>
+        <text class="spec-value">{{racket.weight}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">平衡点</text>
+        <text class="spec-value highlight">{{racket.balance}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">中管硬度</text>
+        <text class="spec-value">{{racket.shaft}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">拍框</text>
+        <text class="spec-value">{{racket.frame}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">建议磅数</text>
+        <text class="spec-value">≤ {{racket.maxLbs}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">材质</text>
+        <text class="spec-value">{{racket.material}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">握柄</text>
+        <text class="spec-value">{{racket.grip}}</text>
+      </view>
+      <view class="spec-row">
+        <text class="spec-key">科技</text>
+        <text class="spec-value highlight">{{racket.feature}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 专业性能评分 -->
+  <view class="section-card perf-section">
+    <view class="section-header">
+      <text class="section-title">📊 专业性能评分</text>
+      <text class="section-subtitle">基于用户真实反馈和实验室数据</text>
+    </view>
+    
+    <view class="perf-grid">
+      <!-- 进攻性能 -->
+      <view class="perf-category">
+        <view class="perf-cat-header">
+          <text class="perf-cat-icon">⚔️</text>
+          <text class="perf-cat-title">进攻性能</text>
+        </view>
+        <view class="perf-bars">
+          <view class="perf-bar-item">
+            <view class="bar-label">爆发力</view>
+            <view class="bar-track">
+              <view class="bar-fill attack" style="width: {{racket.performance['爆发力']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['爆发力']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">杀球威力</view>
+            <view class="bar-track">
+              <view class="bar-fill attack" style="width: {{racket.performance['杀球威力']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['杀球威力']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">发力感</view>
+            <view class="bar-track">
+              <view class="bar-fill attack" style="width: {{racket.performance['发力']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['发力']}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 速度性能 -->
+      <view class="perf-category">
+        <view class="perf-cat-header">
+          <text class="perf-cat-icon">💨</text>
+          <text class="perf-cat-title">速度性能</text>
+        </view>
+        <view class="perf-bars">
+          <view class="perf-bar-item">
+            <view class="bar-label">挥速</view>
+            <view class="bar-track">
+              <view class="bar-fill speed" style="width: {{racket.performance['挥速']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['挥速']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">平抽速度</view>
+            <view class="bar-track">
+              <view class="bar-fill speed" style="width: {{racket.performance['平抽速度']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['平抽速度']}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 控球性能 -->
+      <view class="perf-category">
+        <view class="perf-cat-header">
+          <text class="perf-cat-icon">🎯</text>
+          <text class="perf-cat-title">控球性能</text>
+        </view>
+        <view class="perf-bars">
+          <view class="perf-bar-item">
+            <view class="bar-label">控球性</view>
+            <view class="bar-track">
+              <view class="bar-fill control" style="width: {{racket.performance['控球性']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['控球性']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">拉吊精准</view>
+            <view class="bar-track">
+              <view class="bar-fill control" style="width: {{racket.performance['拉吊精准']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['拉吊精准']}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 全面性能 -->
+      <view class="perf-category">
+        <view class="perf-cat-header">
+          <text class="perf-cat-icon">🏸</text>
+          <text class="perf-cat-title">全面性能</text>
+        </view>
+        <view class="perf-bars">
+          <view class="perf-bar-item">
+            <view class="bar-label">网前</view>
+            <view class="bar-track">
+              <view class="bar-fill balance" style="width: {{racket.performance['网前']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['网前']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">防守</view>
+            <view class="bar-track">
+              <view class="bar-fill balance" style="width: {{racket.performance['防守']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['防守']}}</view>
+          </view>
+          <view class="perf-bar-item">
+            <view class="bar-label">上手难度</view>
+            <view class="bar-track">
+              <view class="bar-fill difficulty" style="width: {{racket.performance['上手难度']}}%"></view>
+            </view>
+            <view class="bar-score">{{racket.performance['上手难度']}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 专业评测 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">🔍 专业评测</text>
+    </view>
+    
+    <!-- 优点 -->
+    <view class="review-box pros-box">
+      <view class="review-header">
+        <text class="review-icon">✅</text>
+        <text class="review-title">优点</text>
+      </view>
+      <view class="review-list">
+        <view class="review-item" wx:for="{{racket.expertReview.pros}}" wx:key="*this">
+          <text class="item-dot">•</text>
+          <text class="item-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 缺点 -->
+    <view class="review-box cons-box">
+      <view class="review-header">
+        <text class="review-icon">⚠️</text>
+        <text class="review-title">缺点</text>
+      </view>
+      <view class="review-list">
+        <view class="review-item" wx:for="{{racket.expertReview.cons}}" wx:key="*this">
+          <text class="item-dot">•</text>
+          <text class="item-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 总结 -->
+    <view class="review-summary">
+      <view class="summary-header">
+        <text class="summary-icon">💬</text>
+        <text class="summary-title">评测总结</text>
+      </view>
+      <text class="summary-text">{{racket.expertReview.summary}}</text>
+    </view>
+  </view>
+
+  <!-- 常见问题 -->
+  <view class="section-card" wx:if="{{racket.faqs.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">❓ 常见问题</text>
+    </view>
+    <view class="faq-list">
+      <view class="faq-item" wx:for="{{racket.faqs}}" wx:key="*this">
+        <view class="faq-q">
+          <text class="faq-icon">Q</text>
+          <text class="faq-question">{{item.q}}</text>
+        </view>
+        <view class="faq-a">
+          <text class="faq-icon-a">A</text>
+          <text class="faq-answer">{{item.a}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="action-icons">
+      <view class="action-icon-item">
+        <text class="icon-font">⭐</text>
+        <text class="icon-text">收藏</text>
+      </view>
+      <view class="action-icon-item" bindtap="goToCompare">
+        <text class="icon-font">📊</text>
+        <text class="icon-text">对比</text>
+      </view>
+    </view>
+    <view class="action-btn-group">
+      <view class="btn-similar">查看相似</view>
+      <view class="btn-buy">立即选购</view>
+    </view>
+  </view>
+</view>

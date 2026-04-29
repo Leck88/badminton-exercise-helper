@@ -1,0 +1,146 @@
+<view class="container">
+  <!-- 紧凑顶部Tab -->
+  <view class="tab-bar">
+    <view class="tab-item {{currentTab === 'racket' ? 'active' : ''}}" bindtap="switchTab" data-tab="racket">
+      🏸 球拍
+    </view>
+    <view class="tab-item {{currentTab === 'grip' ? 'active' : ''}}" bindtap="switchTab" data-tab="grip">
+      🧤 手胶
+    </view>
+    <view class="tab-item {{currentTab === 'shuttlecock' ? 'active' : ''}}" bindtap="switchTab" data-tab="shuttlecock">
+      🪶 羽毛球
+    </view>
+    <view class="tab-item {{currentTab === 'shoe' ? 'active' : ''}}" bindtap="switchTab" data-tab="shoe">
+      👟 球鞋
+    </view>
+  </view>
+
+  <!-- 紧凑筛选行 -->
+  <view class="filter-row">
+    <!-- 品牌下拉 -->
+    <picker class="filter-picker" range="{{currentTab === 'racket' ? racketBrands : currentTab === 'grip' ? gripBrands : currentTab === 'shuttlecock' ? shuttlecockBrands : shoeBrands}}" bindchange="selectBrand">
+      <view class="picker-btn {{currentBrand ? 'active' : ''}}">
+        {{currentBrand || '全部品牌'}}
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+    
+    <!-- 级别筛选 -->
+    <view class="level-btns">
+      <view class="level-btn {{currentLevel === '' ? 'active' : ''}}" bindtap="selectLevel" data-level="">全部</view>
+      <view class="level-btn {{currentLevel === '入门级' ? 'entry' : ''}}" bindtap="selectLevel" data-level="入门级">入门</view>
+      <view class="level-btn {{currentLevel === '进阶级' ? 'advanced' : ''}}" bindtap="selectLevel" data-level="进阶级">进阶</view>
+      <view class="level-btn {{currentLevel === '专业级' ? 'pro' : ''}}" bindtap="selectLevel" data-level="专业级">专业</view>
+    </view>
+    
+    <!-- 排序 -->
+    <view class="sort-btn" bindtap="toggleSortPicker">
+      {{currentSort === 'rating' ? '评分' : currentSort === 'price-asc' ? '低价' : currentSort === 'price-desc' ? '高价' : '销量'}}
+    </view>
+  </view>
+
+  <!-- 结果统计 -->
+  <view class="result-bar">
+    <text class="result-count">共 {{currentTab === 'racket' ? filteredRackets.length : currentTab === 'grip' ? filteredGrips.length : currentTab === 'shuttlecock' ? filteredShuttlecocks.length : filteredShoes.length}} 款</text>
+    <text class="clear-btn" bindtap="clearFilters" wx:if="{{currentBrand || currentLevel}}">清空筛选</text>
+  </view>
+
+  <!-- 商品网格 (2列) -->
+  <scroll-view class="product-grid" scroll-y>
+    <!-- 球拍网格 -->
+    <block wx:if="{{currentTab === 'racket'}}">
+      <view class="grid-card" wx:for="{{filteredRackets}}" wx:key="id" bindtap="goRacketDetail" data-id="{{item.id}}">
+        <view class="card-icon">🏸</view>
+        <view class="card-body">
+          <text class="card-brand">{{item.brand}}</text>
+          <text class="card-name">{{item.name}}</text>
+          <view class="card-meta">
+            <text class="card-level level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+            <text class="card-perf">攻{{item.performance['杀球威力']}} 速{{item.performance['挥速']}}</text>
+          </view>
+          <view class="card-footer">
+            <text class="card-rating">★ {{item.rating}}</text>
+            <text class="card-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 手胶网格 -->
+    <block wx:if="{{currentTab === 'grip'}}">
+      <view class="grid-card" wx:for="{{filteredGrips}}" wx:key="id" bindtap="goGripDetail" data-id="{{item.id}}">
+        <view class="card-icon grip-icon">🧤</view>
+        <view class="card-body">
+          <text class="card-brand">{{item.brand}}</text>
+          <text class="card-name">{{item.name}}</text>
+          <view class="card-meta">
+            <text class="card-level level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+            <text class="card-perf">{{item.type}}</text>
+          </view>
+          <view class="card-footer">
+            <text class="card-rating">★ {{item.rating}}</text>
+            <text class="card-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 羽毛球网格 -->
+    <block wx:if="{{currentTab === 'shuttlecock'}}">
+      <view class="grid-card" wx:for="{{filteredShuttlecocks}}" wx:key="id">
+        <view class="card-icon shuttle-icon">🪶</view>
+        <view class="card-body">
+          <text class="card-brand">{{item.brand}}</text>
+          <text class="card-name">{{item.name}}</text>
+          <view class="card-meta">
+            <text class="card-level level-{{item.level === '顶级比赛' ? 'pro' : item.level === '比赛级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+            <text class="card-perf">耐{{item.durability}} 飞{{item.flight}}</text>
+          </view>
+          <view class="card-footer">
+            <text class="card-rating">★ {{item.rating}}</text>
+            <text class="card-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 球鞋网格 -->
+    <block wx:if="{{currentTab === 'shoe'}}">
+      <view class="grid-card" wx:for="{{filteredShoes}}" wx:key="id">
+        <view class="card-icon shoe-icon">👟</view>
+        <view class="card-body">
+          <text class="card-brand">{{item.brand}}</text>
+          <text class="card-name">{{item.name}}</text>
+          <view class="card-meta">
+            <text class="card-level level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+            <text class="card-perf">{{item.type}}</text>
+          </view>
+          <view class="card-footer">
+            <text class="card-rating">★ {{item.rating}}</text>
+            <text class="card-price">¥{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{(currentTab === 'racket' && filteredRackets.length === 0) || (currentTab === 'grip' && filteredGrips.length === 0) || (currentTab === 'shuttlecock' && filteredShuttlecocks.length === 0) || (currentTab === 'shoe' && filteredShoes.length === 0)}}">
+      <text class="empty-text">暂无商品</text>
+      <text class="empty-btn" bindtap="clearFilters">清空筛选</text>
+    </view>
+  </scroll-view>
+
+  <!-- 排序弹窗 -->
+  <view class="sort-mask {{showSortPicker ? 'show' : ''}}" bindtap="toggleSortPicker">
+    <view class="sort-panel" catchtap="noop">
+      <view class="sort-title">排序方式</view>
+      <view class="sort-list">
+        <view class="sort-item {{currentSort === 'rating' ? 'active' : ''}}" bindtap="selectSort" data-sort="rating">综合评分</view>
+        <view class="sort-item {{currentSort === 'price-asc' ? 'active' : ''}}" bindtap="selectSort" data-sort="price-asc">价格从低到高</view>
+        <view class="sort-item {{currentSort === 'price-desc' ? 'active' : ''}}" bindtap="selectSort" data-sort="price-desc">价格从高到低</view>
+        <view class="sort-item {{currentSort === 'sales' ? 'active' : ''}}" bindtap="selectSort" data-sort="sales">销量最高</view>
+      </view>
+      <view class="sort-cancel" bindtap="toggleSortPicker">取消</view>
+    </view>
+  </view>
+</view>

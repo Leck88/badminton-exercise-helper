@@ -1,0 +1,237 @@
+<view class="container">
+  <!-- 提示说明 -->
+  <view class="tips-banner">
+    <text class="tips-icon">💡</text>
+    <text class="tips-text">选择2-4款球拍进行性能对比，帮您找到最适合的装备</text>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-group">
+      <view class="filter-label">品牌</view>
+      <scroll-view class="filter-scroll" scroll-x>
+        <view class="filter-chips">
+          <view class="filter-chip {{filterBrand === '' ? 'active' : ''}}" bindtap="setFilterBrand" data-brand="">全部</view>
+          <view class="filter-chip {{filterBrand === brand ? 'active' : ''}}" wx:for="{{brands}}" wx:key="*this" bindtap="setFilterBrand" data-brand="{{item}}">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="filter-group">
+      <view class="filter-label">价位</view>
+      <view class="filter-chips">
+        <view class="filter-chip {{filterLevel === '' ? 'active' : ''}}" bindtap="setFilterLevel" data-level="">全部</view>
+        <view class="filter-chip entry {{filterLevel === '入门级' ? 'active' : ''}}" bindtap="setFilterLevel" data-level="入门级">入门级</view>
+        <view class="filter-chip advanced {{filterLevel === '进阶级' ? 'active' : ''}}" bindtap="setFilterLevel" data-level="进阶级">进阶级</view>
+        <view class="filter-chip pro {{filterLevel === '专业级' ? 'active' : ''}}" bindtap="setFilterLevel" data-level="专业级">专业级</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已选球拍 -->
+  <view class="selected-section">
+    <text class="section-title">已选球拍 ({{selectedRackets.length}}/4)</text>
+    <view class="selected-list">
+      <view class="selected-card" wx:for="{{selectedRackets}}" wx:key="id">
+        <view class="card-icon">🏸</view>
+        <view class="card-info">
+          <text class="card-brand">{{item.brand}}</text>
+          <text class="card-name">{{item.name}}</text>
+          <text class="card-level level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+        </view>
+        <text class="remove-btn" bindtap="removeRacket" data-id="{{item.id}}">×</text>
+      </view>
+      <view class="add-card" wx:if="{{selectedRackets.length < 4}}" bindtap="showPicker">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加球拍</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 对比表格 -->
+  <view class="compare-table" wx:if="{{selectedRackets.length >= 2}}">
+    <!-- 基本信息 -->
+    <view class="compare-section">
+      <text class="compare-section-title">📋 基本信息</text>
+      <view class="compare-row">
+        <text class="compare-label">品牌</text>
+        <view class="compare-cells">
+          <text class="compare-cell" wx:for="{{selectedRackets}}" wx:key="*this">{{item.brand}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">型号</text>
+        <view class="compare-cells">
+          <text class="compare-cell" wx:for="{{selectedRackets}}" wx:key="*this">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">级别</text>
+        <view class="compare-cells">
+          <text class="compare-cell level-cell level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}" wx:for="{{selectedRackets}}" wx:key="*this">{{item.level}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">类型</text>
+        <view class="compare-cells">
+          <text class="compare-cell type-tag" wx:for="{{selectedRackets}}" wx:key="*this">{{item.type}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">价格</text>
+        <view class="compare-cells">
+          <text class="compare-cell price" wx:for="{{selectedRackets}}" wx:key="*this">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 技术参数 -->
+    <view class="compare-section">
+      <text class="compare-section-title">⚙️ 技术参数</text>
+      <view class="compare-row">
+        <text class="compare-label">重量</text>
+        <view class="compare-cells">
+          <text class="compare-cell" wx:for="{{selectedRackets}}" wx:key="*this">{{item.weight}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">平衡点</text>
+        <view class="compare-cells">
+          <text class="compare-cell small" wx:for="{{selectedRackets}}" wx:key="*this">{{item.balance}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">中管硬度</text>
+        <view class="compare-cells">
+          <text class="compare-cell" wx:for="{{selectedRackets}}" wx:key="*this">{{item.shaft}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">拍框</text>
+        <view class="compare-cells">
+          <text class="compare-cell small" wx:for="{{selectedRackets}}" wx:key="*this">{{item.frame}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">材料</text>
+        <view class="compare-cells">
+          <text class="compare-cell small" wx:for="{{selectedRackets}}" wx:key="*this">{{item.material}}</text>
+        </view>
+      </view>
+      <view class="compare-row">
+        <text class="compare-label">建议磅数</text>
+        <view class="compare-cells">
+          <text class="compare-cell" wx:for="{{selectedRackets}}" wx:key="*this">≤{{item.maxLbs}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 性能对比 -->
+    <view class="compare-section">
+      <text class="compare-section-title">📊 性能雷达</text>
+      
+      <view class="compare-row">
+        <text class="compare-label">杀球威力</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill attack" style="width: {{item.performance['杀球威力']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['杀球威力']}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="compare-row">
+        <text class="compare-label">控球性</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill control" style="width: {{item.performance['控球性']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['控球性']}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="compare-row">
+        <text class="compare-label">挥速</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill speed" style="width: {{item.performance['挥速']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['挥速']}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="compare-row">
+        <text class="compare-label">网前</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill defense" style="width: {{item.performance['网前']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['网前']}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="compare-row">
+        <text class="compare-label">防守</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill defense" style="width: {{item.performance['防守']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['防守']}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="compare-row">
+        <text class="compare-label">上手难度</text>
+        <view class="compare-cells perf-cells">
+          <view class="perf-cell" wx:for="{{selectedRackets}}" wx:key="*this">
+            <view class="perf-bar">
+              <view class="perf-fill difficulty" style="width: {{item.performance['上手难度']}}%"></view>
+            </view>
+            <text class="perf-value">{{item.performance['上手难度']}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 总结推荐 -->
+    <view class="compare-section summary-section">
+      <text class="compare-section-title">🏆 对比总结</text>
+      <view class="summary-cards">
+        <view class="summary-card" wx:for="{{summary}}" wx:key="label">
+          <text class="summary-icon">{{item.icon}}</text>
+          <text class="summary-label">{{item.label}}</text>
+          <text class="summary-value">{{item.value}}</text>
+          <text class="summary-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{selectedRackets.length < 2}}">
+    <text class="empty-icon">🏸</text>
+    <text class="empty-text">请至少选择2款球拍进行对比</text>
+    <view class="quick-select">
+      <text class="quick-title">快速添加热门球拍:</text>
+      <view class="quick-list">
+        <view class="quick-item {{item.isSelected ? 'selected' : ''}}" wx:for="{{filterRackets}}" wx:key="id" bindtap="quickAdd" data-id="{{item.id}}">
+          <view class="quick-info">
+            <text class="quick-name">{{item.name}}</text>
+            <text class="quick-brand">{{item.brand}}</text>
+            <text class="quick-level level-{{item.level === '专业级' ? 'pro' : item.level === '进阶级' ? 'advanced' : 'entry'}}">{{item.level}}</text>
+          </view>
+          <text class="quick-add">{{item.isSelected ? '✓' : '+'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
